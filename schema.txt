@@ -1,0 +1,63 @@
+Menu Name Induk : My Menu
+menu name
+menu item parent : a
+menu item sub	: a.1
+menu active
+menu link
+menu location
+menu posision
+
+CMS Post
+title
+content
+slug
+status -> draft, revision, published, trashed
+author
+editor
+kategori_id -> buat table pivot
+tag_id
+visibility
+password
+meta
+keyword
+thumbnail
+sidebar
+is_slider
+is_featured
+published_at
+softdelete
+
+cmsKategori
+name
+slug
+
+cmsTag
+name
+slug
+
+cmsPage
+title
+slug
+content
+status
+visibility
+password
+author
+editor
+sidebar
+
+cmsSlider
+title
+image
+link
+ordered
+status
+
+cmsWidget
+title
+ordered
+show_at -> ["home, page, blog"]
+status -> show, hide
+widget_type -> html, text, menu, recent_post, pages, kategori, archivedyear
+widget_content
+

@@ -1,0 +1,17 @@
+php artisan make:model Post -mcr
+php artisan make:model Page -mcr
+php artisan make:model Menu -mcr
+php artisan make:model Menuitem -mcr
+php artisan make:model Menufeatured -mcr
+php artisan make:model Category -mcr
+php artisan make:model Slider -mcr
+php artisan make:model Widget -mcr
+php artisan make:model Role -mcr
+php artisan make:model About -mcr
+php artisan make:model Commentsetting -mcr
+php artisan make:model AppMenu -mcr
+php artisan make:model AppRoute -mcr
+php artisan make:model AppModul -mcr
+
+
+
