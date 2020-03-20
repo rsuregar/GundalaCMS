@@ -43,8 +43,13 @@ class MenuController extends Controller
     public function store(Request $request)
     {
         //
-        Menu::create($request->all());
-        return redirect()->back();
+        if ($request->action == 'location') {
+            $update = Menu::find($request->id)->update($request->only('menu_location'));
+            return redirect()->back();
+        }
+        $save= Menu::create($request->all());
+        $url = url()->current().'?action=edit&menu_id='.$save->id;
+        return redirect($url);
     }
 
     /**
@@ -96,7 +101,7 @@ class MenuController extends Controller
     public function destroy(Menu $menu)
     {
         //
-        $menu->delete();
-        return redirect()->back();
+        $menu->forceDelete();
+        return redirect()->route('menu.index');
     }
 }

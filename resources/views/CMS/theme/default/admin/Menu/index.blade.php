@@ -65,7 +65,9 @@
                                 <hr>
                                 <div class="collapse {{ ($action == 'edit') ? 'show':'' }}">
                                     <div class="card card-body bg-light">
-                                        Assign menu to {{ !empty($get) ? $get->title:'' }}
+                                        @isset($get)
+                                        <h5> Pasang menu ke <strong>{{ $get->title }}</strong> <span class="float-right"><a class="btn btn-danger btn-sm delete" href="#"  target-action="{{ route('menu.destroy', $get->id) }}">Hapus</a></span></h5>
+                                        @endisset
                                         <hr>
                                         <form action="{{ route('menuitem.store') }}" method="POST">
                                             @csrf
@@ -73,22 +75,22 @@
                                             <div class="form-row">
                                                 <div class="form-group col-md-3">
                                                   <label for="inputCity">Nama menu</label>
-                                                  <input type="text" name="name" class="form-control" id="inputCity" required>
+                                                  <input type="text" name="name" value="" class="form-control" id="inputCity" required>
                                                 </div>
-                                                <div class="form-group col-md-1">
-                                                  <label for="inputState">Tipe menu</label>
-                                                  <select name="type" id="inputState" class="form-control" required>
+                                                <div class="form-group col-md-2">
+                                                  <label for="tipemenu">Tipe menu</label>
+                                                  <select name="type" id="tipemenu" class="form-control" required>
                                                     <option value="link">Link</option>
-                                                    <option value="submenu">Submenu</option>
+                                                    <option value="submenu">Memiliki submenu</option>
                                                   </select>
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label for="inputState">Parent id</label>
                                                     <select name="parent_id" id="inputState" class="form-control" required>
                                                       <option value="0">Tanpa Parent</option>
-                                                      @foreach (\App\Menuitem::where('parent_id', 0)->get() as $item)
+                                                      @foreach (\App\Menuitem::where('parent_id', 0)->where('menu_id', (isset($get) ? $get->id:1))->get() as $item)
                                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                            @foreach (\App\Menuitem::where('parent_id', '<>', 0)->get() as $items)
+                                                            @foreach (\App\Menuitem::where('parent_id', '<>', 0)->where('menu_id', (isset($get) ? $get->id:1))->get() as $items)
                                                                 @if ($items->parent_id == $item->id)
                                                                 <option value="{{ $items->id }}">&nbsp;&nbsp;&#11169; &nbsp; {{ $items->name }}</option>
                                                                 @endif
@@ -96,7 +98,7 @@
                                                       @endforeach
                                                     </select>
                                                 </div>
-                                                <div class="form-group col-md-5" id="intlinkdiv">
+                                                <div class="form-group col-md-4" id="intlinkdiv">
                                                     <label for="inputState">Sumber internal link</label>
                                                     <select name="inlink" id="intlink" required data-placeholder="Pilih sumber dari internal" class="chosen-select" tabindex="5" >
                                                         <option value=""></option>
@@ -113,15 +115,15 @@
                                                     </select>
                                                 </div>
                                               </div>
-                                            <div class="form-group">
-                                                <div class="custom-control custom-checkbox mt-2">
+                                            <div class="form-group" id="metadiv">
+                                                <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" id="meta">
                                                     <label class="custom-control-label" for="meta">Gunakan sumber eksternal</label>
                                                 </div>
                                             </div>
                                             <div class="form-group d-none" id="eksternal"">
                                                 <label for="extlink">Eksternal link</label>
-                                                <input type="text" id="extlink" disabled name="exlink" class="form-control" placeholder="Eksternal link">
+                                                <input type="url" id="extlink" disabled name="exlink" class="form-control" placeholder="Eksternal link">
                                             </div>
                                             <div class="text-right">
                                                 <button type="submit" class="btn btn-primary">Simpan menu</button>
@@ -132,7 +134,7 @@
                                         <table class="table table-sm table-bordered">
                                             <thead>
                                                 <tr class="bg-light text-center">
-                                                    <th class="text-left">ID | Name</th>
+                                                    <th class="text-left">Name</th>
                                                     <th>Type</th>
                                                     <th>Order</th>
                                                     <th>IsActive</th>
@@ -142,34 +144,43 @@
                                             </thead>
                                             <tbody>
                                                 @isset($get)
-                                                @forelse ($get->item->where('parent_id', 0) as $item)
-                                                    <tr>
-                                                        <td>{{ $item->id.' | '.$item->name }}</td>
-                                                        <td>{{ $item->type }}</td>
-                                                        <td class="text-center">{{ $item->ordered }}</td>
-                                                        <td class="text-center">{{ $item->is_active }}</td>
-                                                        <td>{{ $item->link }}</td>
-                                                        <td>edit hapus</td>
+                                                @forelse ($get->item->where('parent_id', 0)->sortBy('ordered') as $item)
+                                                    <tr class="{{ $item->is_active == 1 ? '':'bg-warning' }}">
+                                                        <td class="align-middle font-weight-bold">{{ $item->name }}</td>
+                                                        <td class="align-middle">{{ $item->type }}</td>
+                                                        <td class="text-center align-middle">{{ $item->ordered }}</td>
+                                                        <td class="text-center align-middle">{{ $item->is_active == 1 ? 'Aktif':'TIdak aktif' }}</td>
+                                                        <td class="align-middle">{{ $item->link }}</td>
+                                                        <td class="align-middle text-center">
+                                                            <a class="btn btn-primary btn-sm li-modal" data-toggle="modal"  href="{{ route('menuitem.edit',$item->id) }}">Edit</a>
+                                                            <a class="btn btn-danger btn-sm delete" href="#"  target-action="{{ route('menuitem.destroy', $item->id) }}">Hapus</a>
+                                                        </td>
                                                     </tr>
-                                                    @foreach ($get->item->where('parent_id', '<>', 0) as $el)
+                                                    @foreach ($get->item->where('parent_id', '<>', 0)->sortBy('ordered') as $el)
                                                         @if ($el->parent_id == $item->id)
-                                                        <tr>
-                                                            <td>&nbsp;&nbsp; <span class="text-primary">&#11169; &nbsp;</span> {{ $el->name }}</td>
-                                                            <td>{{ $el->type }}</td>
-                                                            <td class="text-center">{{ $el->ordered }}</td>
-                                                            <td class="text-center">{{ $el->is_active }}</td>
-                                                            <td>{{ $el->link }}</td>
-                                                            <td>edit hapus</td>
+                                                        <tr class="{{ $el->is_active == 1 ? '':'bg-warning' }}">
+                                                            <td class="align-middle">&nbsp;&nbsp; <span class="text-primary">&#11169; &nbsp;</span> {{ $el->name }}</td>
+                                                            <td class="align-middle">{{ $el->type }}</td>
+                                                            <td class="text-center align-middle">{{ $el->ordered }}</td>
+                                                            <td class="text-center align-middle">{{ $el->is_active == 1 ? 'Aktif':'TIdak aktif' }}</td>
+                                                            <td class="align-middle">{{ $el->link }}</td>
+                                                            <td class="align-middle text-center">
+                                                                <a class="btn btn-primary btn-sm li-modal" data-toggle="modal"  href="{{ route('menuitem.edit',$el->id) }}">Edit</a>
+                                                                <a class="btn btn-danger btn-sm delete" href="#"  target-action="{{ route('menuitem.destroy', $el->id) }}">Hapus</a>
+                                                            </td>
                                                         </tr>
-                                                        @foreach ($get->item->where('parent_id', '<>', 0) as $e)
+                                                        @foreach ($get->item->where('parent_id', '<>', 0)->sortBy('ordered') as $e)
                                                             @if ($e->parent_id == $el->id)
-                                                            <tr>
-                                                                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="text-danger">&#11169; &nbsp;</span> {{ $e->name }}</td>
-                                                                <td>{{ $e->type }}</td>
-                                                                <td class="text-center">{{ $e->ordered }}</td>
-                                                                <td class="text-center">{{ $e->is_active }}</td>
-                                                                <td>{{ $e->link }}</td>
-                                                                <td>edit hapus</td>
+                                                            <tr class="{{ $e->is_active == 1 ? '':'bg-warning' }}">
+                                                                <td class="align-middle">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="text-danger">&#11169; &nbsp;</span> {{ $e->name }}</td>
+                                                                <td class="align-middle">{{ $e->type }}</td>
+                                                                <td class="text-center align-middle">{{ $e->ordered }}</td>
+                                                                <td class="text-center align-middle">{{ $e->is_active == 1 ? 'Aktif':'TIdak aktif' }}</td>
+                                                                <td class="align-middle">{{ $e->link }}</td>
+                                                                <td class="align-middle text-center">
+                                                                    <a class="btn btn-primary btn-sm li-modal" data-toggle="modal"  href="{{ route('menuitem.edit',$e->id) }}">Edit</a>
+                                                                    <a class="btn btn-danger btn-sm delete" href="#"  target-action="{{ route('menuitem.destroy', $e->id) }}">Hapus</a>
+                                                                </td>
                                                             </tr>
                                                             @endif
                                                         @endforeach
@@ -186,9 +197,6 @@
 
                         </div>
                         <div class="tab-pane fade {{ $action == 'location' ? 'show active':'' }}" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                        {{-- <form action="{{ route('menu.store') }}" method="post">
-                            @csrf
-                            <input type="hidden" name="action" value="location">
                             <table class="table table-sm table-borderless mt-3">
                                 <thead>
                                     <tr>
@@ -200,61 +208,74 @@
                                     <tr>
                                         <td>Top Menu</td>
                                         <td>
-                                            <input type="hidden" name="menu_location[]" value="top">
-                                            <select name="menu_id[]" {{ $data->count() < 1 ? 'disabled':''}} class="form-control form-control-sm my-1 mr-sm-2" id="type">
-                                                @forelse ($data as $item)
-                                                <option {{ (!empty($get) && $get->id == $item->id) ? 'selected':'' }} value="{{ $item->id }}">{{ $item->title }}</option>
-                                                @empty
-                                                <option value="">-- Pilih Menu --</option>
-                                                @endforelse
-                                            </select>
+                                            <form action="{{ route('menu.store') }}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="action" value="location">
+                                            <input type="hidden" name="menu_location" value="top">
+                                            <div class="form-row">
+                                                <div class="form-group col-md-10">
+                                                    <select name="id" {{ $data->count() < 1 ? 'disabled':''}} class="form-control form-control-sm my-1 mr-sm-2" id="type">
+                                                        <option value="">-- Pilih Menu --</option>
+                                                        @foreach ($data as $item)
+                                                        <option {{ $item->menu_location == 'top' ? 'selected':'' }} value="{{ $item->id }}">{{ $item->title }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-2 mt-1">
+                                                    <button class="btn btn-sm btn-block btn-primary" type="submit">Save Change</button>
+                                                </div>
+                                            </div>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Secondary Menu</td>
+                                        <td>
+                                            <form action="{{ route('menu.store') }}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="action" value="location">
+                                            <input type="hidden" name="menu_location" value="secondary">
+                                            <div class="form-row">
+                                                <div class="form-group col-md-10">
+                                                    <select name="id" {{ $data->count() < 1 ? 'disabled':''}} class="form-control form-control-sm my-1 mr-sm-2" id="type">
+                                                        <option value="">-- Pilih Menu --</option>
+                                                        @foreach ($data as $item)
+                                                        <option {{ $item->menu_location == 'secondary' ? 'selected':'' }} value="{{ $item->id }}">{{ $item->title }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-2 mt-1">
+                                                    <button class="btn btn-sm btn-block btn-primary" type="submit">Save Change</button>
+                                                </div>
+                                            </div>
+                                            </form>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Footer Menu</td>
                                         <td>
-                                            <input type="hidden" name="menu_location[]" value="footer">
-                                            <select name="menu_id[]" {{ $data->count() < 1 ? 'disabled':''}} class="form-control form-control-sm  my-1 mr-sm-2" id="type">
-                                                @forelse ($data as $item)
-                                                <option {{ (!empty($get) && $get->id == $item->id) ? 'selected':'' }} value="{{ $item->id }}">{{ $item->title }}</option>
-                                                @empty
-                                                <option value="">-- Pilih Menu --</option>
-                                                @endforelse
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Right Position</td>
-                                        <td>
-                                            <input type="hidden" name="menu_position[]" value="right">
-                                            <select name="menu_id[]" {{ $data->count() < 1 ? 'disabled':''}} class="form-control form-control-sm  my-1 mr-sm-2" id="type">
-                                                @forelse ($data as $item)
-                                                <option {{ (!empty($get) && $get->id == $item->id) ? 'selected':'' }} value="{{ $item->id }}">{{ $item->title }}</option>
-                                                @empty
-                                                <option value="">-- Pilih Menu --</option>
-                                                @endforelse
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Left Position</td>
-                                        <td>
-                                            <input type="hidden" name="menu_position[]" value="left">
-                                            <select name="menu_id[]" {{ $data->count() < 1 ? 'disabled':''}} class="form-control form-control-sm  my-1 mr-sm-2" id="type">
-                                                @forelse ($data as $item)
-                                                <option {{ (!empty($get) && $get->id == $item->id) ? 'selected':'' }} value="{{ $item->id }}">{{ $item->title }}</option>
-                                                @empty
-                                                <option value="">-- Pilih Menu --</option>
-                                                @endforelse
-                                            </select>
+                                            <form action="{{ route('menu.store') }}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="action" value="location">
+                                                <input type="hidden" name="menu_location" value="footer">
+                                                <div class="form-row">
+                                                <div class="form-group col-md-10">
+                                                    <select name="id" {{ $data->count() < 1 ? 'disabled':''}} class="form-control form-control-sm my-1 mr-sm-2" id="type">
+                                                        <option value="">-- Pilih Menu --</option>
+                                                        @foreach ($data as $item)
+                                                        <option {{ $item->menu_location == 'footer' ? 'selected':'' }} value="{{ $item->id }}">{{ $item->title }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-2 mt-1">
+                                                    <button class="btn btn-sm btn-block btn-primary" type="submit">Save Change</button>
+                                                </div>
+                                                </div>
+                                                </form>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="text-right">
-                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                            </div>
-                        </form> --}}
                         </div>
                       </div>
                 </div>
@@ -265,10 +286,37 @@
         </div>
     </div>
 </div>
+
+@component(env('DEFAULT_COMPONENTS').'modal')
+Jika Anda menghapus menu Induk. Sub-menu juga akan terhapus.
+@endcomponent
+
 @endsection
 @push('script')
 <script>
     $(document).ready(function(){
+    //     $('.delete').click(function(){
+    //         var action = this.getAttribute('target-action');
+    //         $("#deleteForm").attr('action', action);
+    //         $('#modalConfirmation').modal('toggle');
+    //     });
+
+    //     $('.li-modal').on('click', function(e){
+    // // alert('halo');
+    //     $('#theModal').modal('show').find('.modal-content').html('<div class="modal-body">Loading...</div>');
+
+    //     e.preventDefault();
+    //     $('#theModal').modal('show').find('.modal-content')
+    //     //
+    //         // .load('http://localhost/Admin/vertical-green/index.html')
+    //         .load($(this).attr('href'), function(response, status,xhr){
+    //             $('.chosen-select').chosen()
+    //             if ( status == "error" ) {
+    //             $('#theModal').modal('show').find('.modal-content').html('<div class="modal-body">Sorry but there was an error : <strong>'+xhr.status+'</strong> '+xhr.statusText+'</div>');
+    //                 console.log( xhr.statusText );
+    //             }
+    //         });
+    //     });
         $('#meta').click(function(){
             if($(this).prop("checked") == true){
                 // alert("Checkbox is checked.");
@@ -289,6 +337,22 @@
                 $('#intlink').prop("required", true);
             }
         });
+
+        $('#tipemenu').on('change', function() {
+            // alert(this.value);
+            if(this.value == 'submenu'){
+                $('#metadiv').hide();
+                $('#intlinkdiv').hide();
+                $('#intlink').prop("disabled", true);
+                $('#intlink').prop("required", false);
+            }else {
+                $('#metadiv').show();
+                $('#intlinkdiv').show();
+                $('#intlink').prop("disabled", false);
+                $('#intlink').prop("required", true);
+            }
+        });
+
     });
 </script>
 @endpush

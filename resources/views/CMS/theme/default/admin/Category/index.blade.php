@@ -19,6 +19,7 @@
                           <div class="card mt-5">
                             <div class="card-body">
                                 <div class="row">
+                                    <div class="col-md-9 col-sm-12 col-xs-12"></div>
                                     <div class="col-md-3 col-sm-12 col-xs-12">
                                         <form>
                                             <div class="input-group">
@@ -55,13 +56,14 @@
                                         <div class="bullet"></div>
                                         <a href="{{ route(Request::segment(2).'.edit', $item->id) }}">Edit</a>
                                         <div class="bullet"></div>
-                                        <a href="{{ route(Request::segment(2).'.destroy', $item->id) }}" onclick="event.preventDefault();
+                                        {{-- <a href="{{ route(Request::segment(2).'.destroy', $item->id) }}" onclick="event.preventDefault();
                                             document.getElementById('delete{{$item->id}}').submit();" class="text-danger">Trash</a>
 
                                         <form id="delete{{$item->id}}" action="{{ route(Request::segment(2).'.destroy', $item->id) }}" method="POST" style="display: none;">
                                                 @csrf
                                                 @method('DELETE')
-                                            </form>
+                                            </form> --}}
+                                            <a class="text-danger btn-link delete" href="#"  target-action="{{ route(Request::segment(2).'.destroy', $item->id) }}">Trash</a>
                                       </div>
                                     </td>
                                     <td>{{ $item->slug }}</td>
@@ -83,6 +85,9 @@
         </div>
         <div class="col-md-2">
             @include(env('DEFAULT_COMPONENTS').'sidebar')
+            @component(env('DEFAULT_COMPONENTS').'modal')
+                Ingin mengahapus kategori ini?
+            @endcomponent
         </div>
     </div>
 </div>

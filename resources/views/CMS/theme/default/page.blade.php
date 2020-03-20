@@ -46,7 +46,7 @@
                 </article>
             </div>
             @if ($data->sidebar == 1)
-                @include('CMS.theme.default.components.blog-widget')
+                @include('CMS.theme.default.components.widget-page')
             @endif
         </div>
     </div>

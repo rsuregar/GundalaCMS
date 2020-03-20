@@ -27,7 +27,7 @@ Route::get('/contoh', function () {
 Route::any('/', function () {
     $menus = \App\Menu::where(['menu_location' => 'top', 'menu_position' => 'left', 'is_active' => 1])->first();
     // return $menu->item;
-    $data = \App\Post::where('status', 'published')->paginate(9);
+    $data = \App\Post::where('status', 'published')->where('visibility', 'public')->paginate(9);
     $featured = \App\Menufeatured::where('is_active', 1)->get();
     $slider = \App\Slider::where('status', 'published')->get();
     $config = \App\About::find(1);

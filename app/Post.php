@@ -41,4 +41,5 @@ class Post extends Model
     {
         $this->attributes['title'] = ucwords(strtolower($value));
     }
+
 }

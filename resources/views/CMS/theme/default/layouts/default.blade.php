@@ -20,6 +20,7 @@
 
     <style>
 
+
         .navbar-nav .dropdown-menu {
             float: none;
             border-radius: 0;
@@ -49,6 +50,11 @@
             margin-top: 0px;
             margin-left: 0px;
             border-radius:0;
+        }
+
+        .widget-link a:hover{
+            text-decoration: none !important;
+            color: rebeccapurple;
         }
     </style>
   </head>

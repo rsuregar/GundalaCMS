@@ -38,7 +38,7 @@ class MenuitemController extends Controller
     {
         //
         $request->request->add([
-            'link' => $request->inlink != null ? $request->inlink:$request->exlink
+            'link' => $request->inlink != null ? $request->inlink:($request->has('exlink') ? $request->exlink:'#')
         ]);
         // return $request;
         try {
@@ -71,7 +71,10 @@ class MenuitemController extends Controller
     public function edit(Menuitem $menuitem)
     {
         //
-        return $menuitem;
+        $menuitem = $menuitem;
+        $method = 'PATCH';
+        $action = route('menuitem.update', $menuitem->id);
+        return view('CMS.theme.default.admin.Menu.edit', compact('menuitem', 'method', 'action'));
     }
 
     /**
@@ -84,7 +87,9 @@ class MenuitemController extends Controller
     public function update(Request $request, Menuitem $menuitem)
     {
         //
-        return $menuitem;
+        $request->request->add(['link' => ($request->has('link') && $request->link != null) ? $request->link:$request->inlink ]);
+        $menuitem->update($request->except('inlink'));
+        return redirect()->back();
     }
 
     /**
@@ -96,5 +101,7 @@ class MenuitemController extends Controller
     public function destroy(Menuitem $menuitem)
     {
         //
+        $menuitem->delete();
+        return redirect()->back();
     }
 }

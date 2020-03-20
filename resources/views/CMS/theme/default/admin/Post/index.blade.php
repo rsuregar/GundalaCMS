@@ -92,13 +92,14 @@
                                         <div class="bullet"></div>
                                         <a href="{{ route('post.edit', $item->id) }}">Edit</a>
                                         <div class="bullet"></div>
-                                        <a href="{{ route('post.destroy', $item->id) }}" onclick="event.preventDefault();
+                                        {{-- <a href="{{ route('post.destroy', $item->id) }}" onclick="event.preventDefault();
                                             document.getElementById('delete{{$item->id}}').submit();" class="text-danger">Trash</a>
 
                                             <form id="delete{{$item->id}}" action="{{ route('post.destroy', $item->id) }}" method="POST" style="display: none;">
                                                 @csrf
                                                 @method('DELETE')
-                                            </form>
+                                            </form> --}}
+                                            <a class="text-danger btn-link delete" href="#"  target-action="{{ route(Request::segment(2).'.destroy', $item->id) }}">Trash</a>
                                       </div>
                                     </td>
                                     <td>
@@ -160,4 +161,7 @@
         </div>
     </div>
 </div>
+@component('CMS.theme.default.components.modal')
+    Ingin menghapus {{ ucwords(Request::segment(2)) }} ini?
+@endcomponent
 @endsection

@@ -31,6 +31,7 @@ class CreatePostsTable extends Migration
             $table->integer('is_slider')->default(0)->comment('1=set, 0=unset');
             $table->integer('is_featured')->default(0)->comment('1=set, 0=unset');
             $table->dateTime('published_at')->nullable()->default(now());
+            $table->year('date_created')->default(date('Y'));
             $table->softDeletes();
             $table->timestamps();
             $table->foreign('author')->references('id')->on('users')->onDelete('cascade');

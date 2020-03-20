@@ -18,8 +18,8 @@ class CreateWidgetsTable extends Migration
             $table->string('title', 100)->nullable();
             $table->tinyInteger('ordered');
             $table->tinyInteger('status')->default(1)->comment('show, hide');
-            $table->string('show_at')->default('["home"]');
-            $table->string('widget_type')->default('html')->comment('html, text, menu, recent_post, pages, kategori, archivedyear');
+            $table->string('show_at')->default('home')->comment('home, page, blog');
+            $table->integer('widget_type')->default('1')->comment('html, text, menu, recent_post, pages, kategori, archivedyear');
             $table->text('widget_content');
             $table->softDeletes();
             $table->timestamps();

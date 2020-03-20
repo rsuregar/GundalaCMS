@@ -26,6 +26,7 @@
     {{-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css'> --}}
     <link href="{{ asset('css/chosen.css') }}" rel="stylesheet">
 
+
     <style>
 
     .bootstrap-tagsinput {
@@ -191,6 +192,7 @@ table tr:hover .table-links {
     <script src="{{ asset('js/bootstrap-tagsinput.min.js') }}"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.js'></script>
     <script  src="{{ asset('js/chosen.js') }}"></script>
+
 @stack('script')
 </body>
 </html>

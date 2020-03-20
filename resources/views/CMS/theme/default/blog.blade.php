@@ -22,7 +22,7 @@
         <div class="col-lg-{{ $data->sidebar == 1 ? 8:10 }}">
                 <article class="article article-detail">
                     <figure class="article-image text-center">
-                    <img src="{{ $data->thumbnail != NULL ? $data->thumbnail:'https://via.placeholder.com/660x360.png' }}" alt="image" class="img-fluid">
+                    <img style="object-fit:cover" src="{{ $data->thumbnail != NULL ? $data->thumbnail:'https://via.placeholder.com/660x360.png' }}" alt="{{ $data->title }}" class="img-fluid">
                     </figure>
                     <div class="p-5">
                         {{-- <div class="article-metas border-bottom pb-3">

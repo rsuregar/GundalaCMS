@@ -54,6 +54,7 @@ class PostController extends Controller
             'editor' => Auth::id(),
             'status' => $request->has('publish') ? 'published':'draft',
             'published_at' => $request->has('publish') ? now():NULL,
+            'date_created' => date('Y')
         ]);
 
         try {

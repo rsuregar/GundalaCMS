@@ -9,7 +9,7 @@
         <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
     </section> --}}
     {{-- endcontent  --}}
-    @forelse (\App\Widget::where('status', 1)->where('show_at', 'like', '%blog%')->orderBy('ordered')->get() as $item)
+    @forelse (\App\Widget::where('status', 1)->where('show_at', 'like', '%page%')->orderBy('ordered')->get() as $item)
         @switch($item->widget_type)
             @case(1)
                 @if ($item->title !=null)
@@ -94,7 +94,7 @@
                         @endforeach
                     </ul> --}}
                     @foreach (\App\Category::whereHas('blog')->orderBy('id', $item->widget_content)->get() as $a)
-                        <a href="#" type="button" class="btn btn-sm btn-warning mb-2" style="border-radius:10px">
+                        <a href="#" type="button" class="btn btn-sm btn-primary" style="border-radius:10px">
                         {{ $a->name }} <span class="badge badge-light"> {{ $a->blog->count() }}</span>
                             {{-- <span class="sr-only">unread messages</span> --}}
                         </a>

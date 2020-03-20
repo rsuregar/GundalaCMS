@@ -17,8 +17,8 @@ class CreateMenuitemsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('menu_id');
             $table->string('name');
-            $table->integer('parent_id')->nullable();
-            $table->string('link');
+            $table->integer('parent_id')->default(0);
+            $table->string('link')->default('#');
             $table->tinyInteger('is_active')->default(1)->comment('show, hide');
             $table->string('type')->default('link')->comment('link, submenu');
             $table->float('ordered')->nullable()->default(0);
