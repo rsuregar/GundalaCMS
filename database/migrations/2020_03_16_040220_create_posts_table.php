@@ -21,7 +21,7 @@ class CreatePostsTable extends Migration
             $table->string('slug')->unique();
             $table->longText('content')->nullable();
             $table->string('status',30)->default('draft')->comment('draft, revision, published, trashed');
-            $table->string('tags');
+            $table->string('tags')->nullable();
             $table->string('visibility', 20)->default('public')->comment('public, private');
             $table->string('password', 20)->nullable();
             $table->string('meta')->nullable();
