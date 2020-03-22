@@ -21,7 +21,7 @@ class CategoryController extends Controller
         $data = Category::where('name', 'like','%'.$q.'%')->paginate(10);
         $data->appends(['search' => $q]);
 
-        return view(env('DEFAULT_ADMIN').'Category.index', compact('title', 'data'));
+        return view('CMS.theme.default.admin.Category.index', compact('title', 'data'));
 
     }
 
@@ -34,7 +34,7 @@ class CategoryController extends Controller
     {
         //
         $title = 'Add New Category';
-        return view(env('DEFAULT_ADMIN').'Category.form', compact('title'));
+        return view('CMS.theme.default.admin.Category.form', compact('title'));
     }
 
     /**
@@ -76,7 +76,7 @@ class CategoryController extends Controller
         //
         $title = 'Edit Category';
         $data = $category;
-        return view(env('DEFAULT_ADMIN').'Category.form', compact('title', 'data'));
+        return view('CMS.theme.default.admin.Category.form', compact('title', 'data'));
     }
 
     /**

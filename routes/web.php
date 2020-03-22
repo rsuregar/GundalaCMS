@@ -13,6 +13,8 @@
 
 Route::any('/', 'HomepageController@index');
 Route::get('blog/{post}', 'PostController@show')->name('blog');
+Route::get('author/{user}', 'UserController@show')->name('user.show');
+Route::get('category/{slug}', 'CategoryController@show')->name('category.show');
 Route::get('/{page}', 'PageController@show')->name('page');
 Route::get('/inlink', 'MenufeaturedController@show')->name('inlink');
 Route::view('demo', 'vendor.laravel-filemanager.demo');
@@ -20,14 +22,14 @@ Auth::routes(['register' => false]);
 Route::group(['middleware' => ['auth'], 'prefix' => 'manage'], function () {
     Route::get('/dashboard', 'HomeController@index')->name('home.index');
     Route::view('media',  env('DEFAULT_ADMIN').'Media.index')->name('media.index');
-    Route::resource('user', 'UserController');
+    Route::resource('user', 'UserController')->except(['show']);
     Route::resource('role', 'RoleController');
     Route::resource('post', 'PostController')->except(['show']);
     Route::resource('page', 'PageController')->except(['show']);
     Route::resource('menu', 'MenuController');
     Route::resource('slider', 'SliderController');
     Route::resource('widget', 'WidgetController');
-    Route::resource('category', 'CategoryController');
+    Route::resource('category', 'CategoryController')->except(['show']);
     Route::resource('about', 'AboutController')->except(['show']);
     Route::resource('commentsetting', 'CommentsettingController');
     Route::resource('menufeatured', 'MenufeaturedController')->except(['show']);

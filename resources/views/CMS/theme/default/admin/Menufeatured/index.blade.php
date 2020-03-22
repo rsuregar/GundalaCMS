@@ -9,7 +9,7 @@
                             {{ session('status') }}
                         </div>
                 @endif
-                <div class="card-header">{{ $title ?? env('APP_NAME') }}</div>
+                <div class="card-header">{{ $title ?? config('app.name') }}</div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
@@ -106,7 +106,7 @@
             </div>
         </div>
         <div class="col-md-2">
-            @include(env('DEFAULT_COMPONENTS').'sidebar')
+            @include('CMS.theme.default.components.sidebar')
             @component('CMS.theme.default.components.modal')
                 Ingin menghapus menu featured ini?
             @endcomponent

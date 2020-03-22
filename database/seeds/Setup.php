@@ -18,14 +18,19 @@ class Setup extends Seeder
     public function run()
     {
         //
-        $role = Role::create([
-            'name' => 'Administrator'
-        ]);
+        $roles = collect(['Administrator', 'Editor', 'Author', 'Subscriber']);
+
+        foreach ($roles as $key) {
+            $role = Role::create([
+                'name' => $key
+            ]);
+        }
 
         $user = User::create([
             'name' => 'Administrator',
             'email' => 'admin@admin.com',
-            'role_id' => $role->id,
+            'role_id' => 1,
+            'username' => 'admin',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
@@ -38,8 +43,9 @@ class Setup extends Seeder
         ];
 
         $dataModuls = [
-            ['route_name' => '#', 'role_id' => 1, 'is_active' => 1],
             ['route_name' => 'home.index', 'role_id' => 1, 'is_active' => 1],
+            ['route_name' => 'home.index', 'role_id' => 2, 'is_active' => 1],
+            ['route_name' => 'home.index', 'role_id' => 3, 'is_active' => 1],
         ];
 
         foreach ($dataRoutes as $key) {
@@ -50,5 +56,8 @@ class Setup extends Seeder
 
         AppMenu::insert($dataMenus);
         AppModul::insert($dataModuls);
+
+        \App\Category::create(['name' => 'Uncategorized', 'slug' => 'uncategorized']);
+
     }
 }

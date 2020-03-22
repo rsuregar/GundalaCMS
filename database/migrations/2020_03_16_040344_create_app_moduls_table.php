@@ -16,11 +16,14 @@ class CreateAppModulsTable extends Migration
         Schema::create('app_moduls', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('route_name',100);
-            $table->unsignedBigInteger('role_id',10)->index();
+            $table->BigInteger('role_id')->unsigned();
             $table->integer('is_active');
             $table->timestamps();
             $table->foreign('route_name')
             ->references('name')->on('app_routes')
+            ->onDelete('cascade');
+            $table->foreign('role_id')
+            ->references('id')->on('roles')
             ->onDelete('cascade');
         });
     }

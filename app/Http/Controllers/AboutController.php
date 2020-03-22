@@ -22,7 +22,7 @@ class AboutController extends Controller
         $data = About::find(1);
         $google = Commentsetting::where('comment_type', 'google')->first();
         // return $google;
-        return view(env('DEFAULT_ADMIN').$this->folder.'.index', compact('data','comment', 'google'));
+        return view('CMS.theme.default.admin.About.index', compact('data','comment', 'google'));
     }
 
     /**
@@ -50,20 +50,20 @@ class AboutController extends Controller
         $nav3 = '#';
         $save = Commentsetting::create($request->all());
         $comment = Commentsetting::where('comment_type', '<>', 'google')->get();
-        return view(env('DEFAULT_ADMIN').$this->folder.'.index', compact('nav3', 'nav2', 'nav1', 'comment'));
+        return view('CMS.theme.default.admin.About.index', compact('nav3', 'nav2', 'nav1', 'comment'));
     }elseif($request->current == 'google'){
         $nav1 = '#';
         $nav2 = '#';
         $nav3 = 'show active';
         $save = Commentsetting::create($request->all());
         $google = Commentsetting::where('comment_type', 'google')->first();
-        return view(env('DEFAULT_ADMIN').$this->folder.'.index', compact('nav3', 'nav2', 'nav1', 'google'));
+        return view('CMS.theme.default.admin.About.index', compact('nav3', 'nav2', 'nav1', 'google'));
     }else{
         $nav1 = 'show active';
         $nav2 = '#';
         $nav3 = '#';
         $data = About::create($request->all());
-        return view(env('DEFAULT_ADMIN').$this->folder.'.index', compact('nav3', 'nav2', 'nav1', 'data'));
+        return view('CMS.theme.default.admin.About.index', compact('nav3', 'nav2', 'nav1', 'data'));
     }
 
     }
@@ -94,7 +94,7 @@ class AboutController extends Controller
         $nav3 = '#';
         $comset = Commentsetting::find($about);
         $comment = Commentsetting::where('comment_type', '<>', 'google')->get();
-        return view(env('DEFAULT_ADMIN').$this->folder.'.index', compact('nav3', 'nav2', 'nav1', 'comment', 'comset'));
+        return view('CMS.theme.default.admin.About.index', compact('nav3', 'nav2', 'nav1', 'comment', 'comset'));
     }
 
     /**
@@ -116,7 +116,7 @@ class AboutController extends Controller
             $comment = Commentsetting::where('comment_type', '<>', 'google')->update(['status' => 0]);
             $find = Commentsetting::find($about)->update($request->all());
             // return $comment;
-            // return view(env('DEFAULT_ADMIN').$this->folder.'.index', compact('nav3', 'nav2', 'nav1', 'comment'));
+            // return view('CMS.theme.default.admin.About.index', compact('nav3', 'nav2', 'nav1', 'comment'));
             return redirect()->back();
         }elseif($request->current == 'google'){
             // return $request;
@@ -125,7 +125,7 @@ class AboutController extends Controller
             $nav3 = 'show active';
             $google = Commentsetting::find($about);
             $google->update($request->all());
-            // return view(env('DEFAULT_ADMIN').$this->folder.'.index', compact('nav3', 'nav2', 'nav1', 'google'));
+            // return view('CMS.theme.default.admin.About.index', compact('nav3', 'nav2', 'nav1', 'google'));
             return redirect()->route('about.index');
         }else{
             // return $request;
@@ -135,7 +135,7 @@ class AboutController extends Controller
             $data = About::find($about);
             $data->update($request->all());
             // return $data;
-            // return view(env('DEFAULT_ADMIN').$this->folder.'.index', compact('nav3', 'nav2', 'nav1', 'data'));
+            // return view('CMS.theme.default.admin.About.index', compact('nav3', 'nav2', 'nav1', 'data'));
             return redirect()->route('about.index');
         }
     }

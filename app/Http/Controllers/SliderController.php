@@ -13,6 +13,11 @@ class SliderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+        $this->middleware('GlobalOwnership', ['except' => ['index', 'create', 'store', 'show']]);
+    }
+
     private $folder = 'Slider';
     public function index(Request $request)
     {
@@ -20,7 +25,7 @@ class SliderController extends Controller
         $title = 'Manajemen '.$this->folder;
         $data = Slider::where('title', 'like','%'.$q.'%')->orWhere('status', 'like', '%'.$q.'%')->orderBy('ordered')->paginate(10);
         $data->appends(['search' => $q]);
-        return view(env('DEFAULT_ADMIN').$this->folder.'.index', compact('title', 'data'));
+        return view('CMS.theme.default.admin.Slider.index', compact('title', 'data'));
     }
 
     /**
@@ -31,7 +36,7 @@ class SliderController extends Controller
     public function create()
     {
         $title = 'Add New '.$this->folder;
-        return view(env('DEFAULT_ADMIN').$this->folder.'.form', compact('title'));
+        return view('CMS.theme.default.admin.Slider.form', compact('title'));
     }
 
     /**
@@ -77,7 +82,7 @@ class SliderController extends Controller
     {
         $title = 'Edit '.$this->folder;
         $data = $slider;
-        return view(env('DEFAULT_ADMIN').$this->folder.'.form', compact('title', 'data'));
+        return view('CMS.theme.default.admin.Slider.form', compact('title', 'data'));
     }
 
     /**

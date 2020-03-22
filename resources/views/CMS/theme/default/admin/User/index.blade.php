@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-9">
             <div class="card">
-                <div class="card-header">{{ $title ?? env('APP_NAME') }}</div>
+                <div class="card-header">{{ $title ?? config('app.name') }}</div>
                 <div class="card-body">
 
                     <form method="POST" action="{{ isset($user) ? route('user.update', $user->id):route('user.store') }}">
@@ -38,12 +38,36 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('Username') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ isset($user) ? $user->username:old('username') }}" required {{ isset($user) ? 'disabled':''}} autocomplete="username">
+
+                                @error('username')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="role_id" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
+
+                            <div class="col-md-6">
+                                <select name="role_id" class="form-control" id="role_id">
+                                    @foreach (\App\Role::all() as $item)
+                                        <option {{ (isset($user) && $user->role_id == $item->id) ? 'selected':'' }} value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row {{ isset($user) ? '':'d-none'}}">
                             <label for="password" class="col-md-4 col-form-label text-md-right"></label>
                             <div class="col-md-6">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="ganti">
                                     <label class="form-check-label" for="ganti">
-                                      Ganti Password
+                                    Ganti Password
                                     </label>
                                   </div>
                             </div>
@@ -53,7 +77,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required disabled autocomplete="new-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required {{ isset($user) ? 'disabled':''}} autocomplete="new-password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -109,8 +133,8 @@
             </div>
         </div>
         <div class="col-md-2">
-            @include(env('DEFAULT_COMPONENTS').'sidebar')
-            @component(env('DEFAULT_COMPONENTS').'modal')
+            @include('CMS.theme.default.components.sidebar')
+            @component('CMS.theme.default.components.modal')
                 Hapus Pengguna ini?
             @endcomponent
         </div>

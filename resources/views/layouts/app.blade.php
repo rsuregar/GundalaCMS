@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $title ?? \App\About::find(1)->title ?? env('APP_NAME', 'The CMS') }}</title>
+    <title>{{ $title ?? \App\About::find(1)->title ?? env('APP_NAME', 'GundalaCMS') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>

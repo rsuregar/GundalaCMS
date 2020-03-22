@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-9">
             <div class="card">
-                <div class="card-header">{{ $title ?? env('APP_NAME') }}</div>
+                <div class="card-header">{{ $title ?? config('app.name') }}</div>
                 <div class="card-body">
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -210,11 +210,11 @@
                                         <td>
                                             <form action="{{ route('menu.store') }}" method="post">
                                             @csrf
-                                            <input type="hidden" name="action" value="location">
-                                            <input type="hidden" name="menu_location" value="top">
+                                            <input type="hidden" name="action"  value="location">
+                                            <input type="hidden" name="menu_location"  value="top">
                                             <div class="form-row">
                                                 <div class="form-group col-md-10">
-                                                    <select name="id" {{ $data->count() < 1 ? 'disabled':''}} class="form-control form-control-sm my-1 mr-sm-2" id="type">
+                                                    <select name="id" {{ $data->count() < 1 ? 'disabled':''}} class="form-control form-control-sm my-1 mr-sm-2" id="type" required>
                                                         <option value="">-- Pilih Menu --</option>
                                                         @foreach ($data as $item)
                                                         <option {{ $item->menu_location == 'top' ? 'selected':'' }} value="{{ $item->id }}">{{ $item->title }}</option>
@@ -237,7 +237,7 @@
                                             <input type="hidden" name="menu_location" value="secondary">
                                             <div class="form-row">
                                                 <div class="form-group col-md-10">
-                                                    <select name="id" {{ $data->count() < 1 ? 'disabled':''}} class="form-control form-control-sm my-1 mr-sm-2" id="type">
+                                                    <select name="id" {{ $data->count() < 1 ? 'disabled':''}} class="form-control form-control-sm my-1 mr-sm-2" id="type" required>
                                                         <option value="">-- Pilih Menu --</option>
                                                         @foreach ($data as $item)
                                                         <option {{ $item->menu_location == 'secondary' ? 'selected':'' }} value="{{ $item->id }}">{{ $item->title }}</option>
@@ -260,7 +260,7 @@
                                                 <input type="hidden" name="menu_location" value="footer">
                                                 <div class="form-row">
                                                 <div class="form-group col-md-10">
-                                                    <select name="id" {{ $data->count() < 1 ? 'disabled':''}} class="form-control form-control-sm my-1 mr-sm-2" id="type">
+                                                    <select name="id" {{ $data->count() < 1 ? 'disabled':''}} class="form-control form-control-sm my-1 mr-sm-2" id="type" required>
                                                         <option value="">-- Pilih Menu --</option>
                                                         @foreach ($data as $item)
                                                         <option {{ $item->menu_location == 'footer' ? 'selected':'' }} value="{{ $item->id }}">{{ $item->title }}</option>
@@ -282,12 +282,12 @@
             </div>
         </div>
         <div class="col-md-2">
-            @include(env('DEFAULT_COMPONENTS').'sidebar')
+            @include('CMS.theme.default.components.sidebar')
         </div>
     </div>
 </div>
 
-@component(env('DEFAULT_COMPONENTS').'modal')
+@component('CMS.theme.default.components.modal')
 Jika Anda menghapus menu Induk. Sub-menu juga akan terhapus.
 @endcomponent
 

@@ -25,12 +25,12 @@
                 <option value=""></option>
                 <optgroup label="HALAMAN">
                   @foreach (\App\Page::all() as $item)
-                    <option value="{{ env('APP_URL').'/'.$item->slug }}">{{ $item->title }}</option>
+                    <option value="{{ config('app.url').'/'.$item->slug }}">{{ $item->title }}</option>
                   @endforeach
                 <optgroup>
                 <optgroup label="BLOG">
                     @foreach (\App\Post::all() as $item)
-                    <option value="{{ env('APP_URL').'/blog/'.$item->slug }}">{{ $item->title }}</option>
+                    <option value="{{ config('app.url').'/blog/'.$item->slug }}">{{ $item->title }}</option>
                   @endforeach
                 </optgroup>
             </select>
