@@ -42,10 +42,10 @@ class install extends Command
         //
         $this->line('--------------- Instalasi GundalaCMS ----------------');
 
-        // $this->line('Menghapus Database Tahfidz Lama.');
+        // $this->line('Menghapus Database Lama.');
         // Artisan::call('database:delete', ['db_name' => env('DB_DATABASE')]);
 
-        // $this->line('Membuat Database TAHFIDZ');
+        // $this->line('Membuat Database baru');
         // Artisan::call('database:create', ['db_name' => env('DB_DATABASE')]);
 
         $this->line('1. Menjalankan migrasi database...');
