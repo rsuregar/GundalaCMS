@@ -17,6 +17,7 @@ class CreateAboutsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title')->nullable();
             $table->string('logo')->nullable();
+            $table->string('favicon')->nullable();
             $table->string('tagline')->nullable();
             $table->string('meta')->nullable();
             $table->string('keyword')->nullable();

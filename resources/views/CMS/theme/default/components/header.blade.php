@@ -2,7 +2,7 @@
     $top = \App\Menu::where(['menu_location' => 'top'])->first();
     $secondary = \App\Menu::where(['menu_location' => 'secondary'])->first();
 @endphp
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-danger shadow-sm">
+<nav class="navbar navbar-expand-md navbar-light fixed-top bg-warning shadow-sm">
     <div class="container-fluid">
     <a href="{{ url('/') }}" class="navbar-brand font-weight-normal">{{ \App\About::find(1)->title ?? env('APP_NAME')}}</a>
       <button type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler">

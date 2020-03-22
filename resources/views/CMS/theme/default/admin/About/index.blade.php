@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-9">
             <div class="card">
-                <div class="card-header">{{ $title ?? 'Laravel CMS' }}</div>
+                <div class="card-header">{{ $title ?? env('APP_NAME') }}</div>
                 <div class="card-body">
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -110,7 +110,7 @@
                                     <tr>
                                         <td>{{$item->comment_type}}</td>
                                         <td>{{$item->appId}}</td>
-                                        <td>{{$item->status == 1 ? 'Aktif':'Tidak aktif'}}</td>
+                                        <td><span class="badge badge-{{ $item->status == 1 ? 'success':''}}">{{$item->status == 1 ? 'Aktif':'Tidak aktif'}} </span></td>
                                         <td><a href="{{ route('about.edit', [$item->id]) }}">Edit</a>
                                             <a class="text-danger" href="{{ route('commentsetting.destroy', [$item->id]) }}">Hapus</a>
                                         </td>

@@ -109,12 +109,13 @@ class AboutController extends Controller
         //
         // return $request;
         if ($request->current == 'comset') {
-            return $request;
+            // return $request;
             $nav1 = '#';
             $nav2 = 'show active';
             $nav3 = '#';
+            $comment = Commentsetting::where('comment_type', '<>', 'google')->update(['status' => 0]);
             $find = Commentsetting::find($about)->update($request->all());
-            $comment = Commentsetting::where('comment_type', '<>', 'google')->get();
+            // return $comment;
             // return view(env('DEFAULT_ADMIN').$this->folder.'.index', compact('nav3', 'nav2', 'nav1', 'comment'));
             return redirect()->back();
         }elseif($request->current == 'google'){

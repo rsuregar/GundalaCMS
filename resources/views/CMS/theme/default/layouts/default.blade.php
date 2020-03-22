@@ -1,26 +1,20 @@
-
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    {{-- <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico"> --}}
-    <title>{{ $judul }}</title>
-    <link rel="canonical" href="{{ $canonical ?? url()->full() }}">
-    <!-- Bootstrap core CSS -->
+    <meta name="author" content="{{ $data->user->name ?? 'Admin' }}">
+    <meta name="keywords" content="{{ $data->keyword ?? ($data->tags ?? 'Laravel, GundalaCMS, Open Source') }}">
+    <link rel="icon" href="{{ \App\About::first()->favicon ?? asset('CMS/theme/default/images/favicon.jpg') }}" type="image/*" sizes="16x16">
+    <title>{{ $judul ?? env('APP_NAME', 'GundalaCMS') }}</title>
+    <link rel="canonical" href="{{ url()->full() }}">
+    @metas
     <link href="{{ asset('CMS/theme/default') }}/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    {{-- <link href="{{ asset('CMS/theme/default') }}/css/carousel.css" rel="stylesheet"> --}}
     <link href="{{ asset('CMS/theme/default') }}/css/style.css" rel="stylesheet">
-    {{-- <link href="{{ asset('CMS/theme/default') }}/font/flaticon.css" rel="stylesheet"> --}}
     <link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
 
     <style>
-
-
         .navbar-nav .dropdown-menu {
             float: none;
             border-radius: 0;
@@ -60,19 +54,20 @@
   </head>
   <body style="background-color:#fbfbfb;">
     @php
-        $commentId = 'facebook';
-        $appId = 321539914595425;
+        // $commentId = 'facebook';
+        // $appId = 321539914595425;
+        $comment = \App\Commentsetting::where('status', 1)->first();
+
+        // dd($comment);
     @endphp
-    @if ($commentId == 'facebook')
+    @if ($comment->status == 1 && $comment->comment_type == 'facebook')
     <script>(function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
     js = d.createElement(s); js.id = id;
-    js.src = 'https://connect.facebook.net/id_ID/sdk.js#xfbml=1&version=v2.10&appId={{$appId}}';
+    js.src = 'https://connect.facebook.net/id_ID/sdk.js#xfbml=1&version=v2.10&appId={{$comment->appId}}';
     fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
-    @else
-
     @endif
     <header>
         @include('CMS.theme.default.components.header')
@@ -115,5 +110,17 @@
         });
         });
     </script>
+    @php
+        $google = \App\Commentsetting::where('comment_type', 'google')->first();
+    @endphp
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{$google->appId}}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', '{{$google->appId}}');
+    </script>
+    @stack('script')
   </body>
 </html>

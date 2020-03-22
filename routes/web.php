@@ -11,33 +11,7 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-Route::get('/contoh', function () {
-    $lokasi = collect(['top', 'footer']);
-    $posisi = collect(['right', 'left']);
-    $status = collect(['0', '1']);
-
-    return $status;
-});
-
-// HOMEPAGE
-Route::any('/', function () {
-    $menus = \App\Menu::where(['menu_location' => 'top', 'menu_position' => 'left', 'is_active' => 1])->first();
-    // return $menu->item;
-    $data = \App\Post::where('status', 'published')->where('visibility', 'public')->paginate(9);
-    $featured = \App\Menufeatured::where('is_active', 1)->get();
-    $slider = \App\Slider::where('status', 'published')->get();
-    $config = \App\About::find(1);
-    $judul = $config->title;
-    $tagline = $config->tagline;
-    $footer = $config->copyright;
-    $canonical = env('APP_URL');
-    return view('CMS.theme.default.index', compact('data', 'featured', 'slider', 'judul', 'tagline', 'canonical', 'footer', 'menus'));
-});
-
+Route::any('/', 'HomepageController@index');
 Route::get('blog/{post}', 'PostController@show')->name('blog');
 Route::get('/{page}', 'PageController@show')->name('page');
 Route::get('/inlink', 'MenufeaturedController@show')->name('inlink');
@@ -63,9 +37,6 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
 
-
-
-// Route::get('/home', 'HomeController@index')->name('home');
 // CUSTOM AUTH ROUTER
 // Authentication Routes...
 Route::get('auth/manage', 'Auth\LoginController@showLoginForm')->name('login');
