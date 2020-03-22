@@ -24,7 +24,7 @@
                                         <label class="sr-only" for="slug">Slug</label>
                                         <div class="input-group">
                                         <div class="input-group-prepend">
-                                        <div class="input-group-text">{{ env('APP_URL').'/blog/' }}</div>
+                                        <div class="input-group-text">{{ config('app.url').'/blog/' }}</div>
                                         </div>
                                         <input name="slug" value="{{ $data->slug }}" type="text" class="form-control" id="slug" placeholder="Slug">
                                         </div>

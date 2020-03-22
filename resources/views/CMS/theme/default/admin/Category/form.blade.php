@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-9">
             <div class="card">
-            <div class="card-header">{{ $title ?? env('APP_NAME') }}<span class="float-right"> <a class="btn btn-outline-secondary btn-sm" href="{{ route(Request::segment(2).'.index') }}"><i class="fas fa-arrow-left"></i> Kembali</span></a></div>
+            <div class="card-header">{{ $title ?? config('app.name') }}<span class="float-right"> <a class="btn btn-outline-secondary btn-sm" href="{{ route(Request::segment(2).'.index') }}"><i class="fas fa-arrow-left"></i> Kembali</span></a></div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-9">
@@ -21,7 +21,7 @@
                                         <label class="sr-only" for="slug">Slug</label>
                                         <div class="input-group">
                                         <div class="input-group-prepend">
-                                        <div class="input-group-text">{{ env('APP_URL').'/category/' }}</div>
+                                        <div class="input-group-text">{{ config('app.url').'/category/' }}</div>
                                         </div>
                                         <input name="slug" value="{{ $data->slug }}" type="text" class="form-control" id="slug" placeholder="Slug">
                                         </div>
