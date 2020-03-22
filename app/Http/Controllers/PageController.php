@@ -14,6 +14,11 @@ class PageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+        $this->middleware('GlobalOwnership', ['except' => ['index', 'create', 'store', 'show']]);
+    }
+
     public function index(Request $request)
     {
         //
@@ -21,7 +26,7 @@ class PageController extends Controller
         $title = 'Manajemen Page';
         $data = Page::where('title', 'like','%'.$q.'%')->orWhere('status', 'like', '%'.$q.'%')->paginate(10);
         $data->appends(['search' => $q]);
-        return view(env('DEFAULT_ADMIN').'Page.index', compact('title', 'data'));
+        return view('CMS.theme.default.admin.Page.index', compact('title', 'data'));
 
     }
 
@@ -33,7 +38,7 @@ class PageController extends Controller
     public function create()
     {
         $title = 'Add New Page';
-        return view(env('DEFAULT_ADMIN').'Page.form', compact('title'));
+        return view('CMS.theme.default.admin.Page.form', compact('title'));
     }
 
     /**
@@ -86,7 +91,7 @@ class PageController extends Controller
         //
         $title = 'Edit Page';
         $data = $page;
-        return view(env('DEFAULT_ADMIN').'Page.form', compact('title', 'data'));
+        return view('CMS.theme.default.admin.Page.form', compact('title', 'data'));
     }
 
     /**

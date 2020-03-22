@@ -21,7 +21,7 @@ class WidgetController extends Controller
         $data->appends(['search' => $q]);
         $tipe = collect(array('1' =>'HTML/Text', 'Menu', 'Recent Post', 'Archieve By Category'));
         // return $data;
-        return view(env('DEFAULT_ADMIN').'Widget.index', compact('title', 'data', 'tipe'));
+        return view('CMS.theme.default.admin.Widget.index', compact('title', 'data', 'tipe'));
 
     }
 
@@ -34,7 +34,7 @@ class WidgetController extends Controller
     {
         //
         $title = 'Add New Widget';
-        return view(env('DEFAULT_ADMIN').'Widget.form', compact('title'));
+        return view('CMS.theme.default.admin.Widget.form', compact('title'));
     }
 
     /**

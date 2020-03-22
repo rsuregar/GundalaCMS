@@ -88,8 +88,8 @@
             </div>
         </div>
         <div class="col-md-2">
-            @include(env('DEFAULT_COMPONENTS').'sidebar')
-            @component(env('DEFAULT_COMPONENTS').'modal')
+            @include('CMS.theme.default.components.sidebar')
+            @component('CMS.theme.default.components.modal')
                 Ingin mengahapus Widget ini?
             @endcomponent
         </div>

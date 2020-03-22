@@ -54,12 +54,10 @@
   </head>
   <body style="background-color:#fbfbfb;">
     @php
-        // $commentId = 'facebook';
-        // $appId = 321539914595425;
         $comment = \App\Commentsetting::where('status', 1)->first();
-
-        // dd($comment);
     @endphp
+    @empty($comment)
+    @else
     @if ($comment->status == 1 && $comment->comment_type == 'facebook')
     <script>(function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
@@ -69,6 +67,7 @@
     fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
     @endif
+    @endempty
     <header>
         @include('CMS.theme.default.components.header')
     </header>
@@ -113,13 +112,13 @@
     @php
         $google = \App\Commentsetting::where('comment_type', 'google')->first();
     @endphp
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{$google->appId}}"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{!empty($google) ? $google->appId:'Google Tag Key'}}"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', '{{$google->appId}}');
+      gtag('config', '{{!empty($google) ? $google->appId:"Google Tag Key"}}');
     </script>
     @stack('script')
   </body>

@@ -15,6 +15,12 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    function __construct()
+    {
+        $this->middleware('GlobalOwnership', ['except' => ['index', 'create', 'store', 'show']]);
+    }
+
     public function index(Request $request)
     {
         //
@@ -25,7 +31,7 @@ class PostController extends Controller
 
         $data->appends(['search' => $q]);
 
-        return view(env('DEFAULT_ADMIN').'Post.index', compact('title', 'data'));
+        return view('CMS.theme.default.admin.Post.index', compact('title', 'data'));
     }
 
     /**
@@ -37,7 +43,7 @@ class PostController extends Controller
     {
         //
         $title = 'Add New Post';
-        return view(env('DEFAULT_ADMIN').'Post.form', compact('title'));
+        return view('CMS.theme.default.admin.Post.form', compact('title'));
     }
 
     /**
@@ -104,7 +110,7 @@ class PostController extends Controller
         //
         $title = 'Edit Post';
         $data = $post;
-        return view(env('DEFAULT_ADMIN').'Post.form', compact('title', 'data'));
+        return view('CMS.theme.default.admin.Post.form', compact('title', 'data'));
     }
 
     /**

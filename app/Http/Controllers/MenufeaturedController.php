@@ -21,7 +21,7 @@ class MenufeaturedController extends Controller
         $title = 'Manajemen Menu Featured';
         $data = Menufeatured::where('title', 'like','%'.$q.'%')->orWhere('subtitle', 'like', '%'.$q.'%')->paginate(10);
         $data->appends(['search' => $q]);
-        return view(env('DEFAULT_ADMIN').$this->folder.'.index', compact('title', 'data'));
+        return view('CMS.theme.default.admin.Menufeatured.index', compact('title', 'data'));
     }
 
     /**
@@ -33,7 +33,7 @@ class MenufeaturedController extends Controller
     {
         //
         $title = 'Add New '.$this->folder;
-        return view(env('DEFAULT_ADMIN').$this->folder.'.form', compact('title'));
+        return view('CMS.theme.default.admin.Menufeatured.form', compact('title'));
     }
 
     /**
@@ -83,7 +83,7 @@ class MenufeaturedController extends Controller
         //
         $title = 'Edit '.$this->folder;
         $data = $menufeatured;
-        return view(env('DEFAULT_ADMIN').$this->folder.'.form', compact('title', 'data'));
+        return view('CMS.theme.default.admin.Menufeatured.form', compact('title', 'data'));
     }
 
     /**

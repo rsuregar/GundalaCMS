@@ -19,5 +19,5 @@
        <span class="float-right">Get in touch</span>
        <span class="toTop" id="myBtn"><a href="#" class="btn btn-md btn-outline-light"><i class="fas fa-arrow-up"></i></a></span> --}}
 
-    <span>© {{date('Y')}}. {{ \App\About::find(1)->copyright }}</span></div>
+    <span>© {{date('Y')}}. {{ \App\About::find(1)->copyright ?? 'GundalaCMS' }}</span></div>
   </footer>

@@ -11,7 +11,7 @@
         <div class="row justify-content-center text-left">
             <div class="col-lg-{{ $data->sidebar == 1 ? 12:10 }}">
                 <h1 class="blog-title">{{ $data->title }}</h1>
-                <small>Oleh <a href="#" style="color:white; text-decoration:none">{{ $data->user->name }}</a> <span class="ml-3">Dipublikasikan pada {{ \Carbon\Carbon::parse($data->published_at)->translatedFormat('d M Y') }}</span></small>
+            <small>Oleh <a href="{{ route('user.show', $data->user->username) }}" style="color:white; text-decoration:none">{{ $data->user->name }}</a> <span class="ml-3">Dipublikasikan pada {{ \Carbon\Carbon::parse($data->published_at)->translatedFormat('d M Y') }}</span></small>
             </div>
         </div>
     </div>

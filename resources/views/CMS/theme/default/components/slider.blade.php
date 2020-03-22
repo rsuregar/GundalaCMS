@@ -22,12 +22,12 @@
               </div>
             @empty
             <div class="carousel-item active">
-                <img class="d-block img-fluid first-slide" src="https://via.placeholder.com/1920x600.png/dc3545" alt="First slide">
+                <img class="d-block img-fluid first-slide" src="https://via.placeholder.com/1920x600.png/ffc107/00000" alt="First slide">
                 <div class="container">
-                  <div class="carousel-caption text-left">
-                    <h1>Example headline.</h1>
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+                  <div class="carousel-caption text-center text-dark">
+                    <h1>Demo Slide.</h1>
+                    <p>Silakan login untuk memulai website Anda. Gunakan username: admin & kata sandi: password</p>
+                  <p><a class="btn btn-lg btn-light" href="{{ route('login') }}" role="button">Mulai kelola website</a></p>
                   </div>
                 </div>
               </div>

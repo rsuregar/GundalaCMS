@@ -106,7 +106,7 @@
             </div>
         </div>
         <div class="col-md-2">
-            @include(env('DEFAULT_COMPONENTS').'sidebar')
+            @include('CMS.theme.default.components.sidebar')
             @component('CMS.theme.default.components.modal')
                 Ingin menghapus menu featured ini?
             @endcomponent

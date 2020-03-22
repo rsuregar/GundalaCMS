@@ -136,7 +136,7 @@
             </div>
         </div>
         <div class="col-md-2">
-            @include(env('DEFAULT_COMPONENTS').'sidebar')
+            @include('CMS.theme.default.components.sidebar')
         </div>
     </div>
 </div>

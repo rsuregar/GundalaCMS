@@ -39,12 +39,18 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'email' => 'required|unique:users',
+            'username' => 'required|unique:users'
+        ]);
+
         $save = new user;
         $save->name = $request->name;
         $save->email = $request->email;
+        $save->username = $request->username;
         $save->password = bcrypt($request->password);
         $save->email_verified_at = now();
-        $save->role_id = 1;
+        $save->role_id = 3;
         $save->save();
         return redirect()->back();
     }
@@ -55,9 +61,11 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($user)
     {
         //
+        $user = User::where('username', $user)->first();
+        return $user->posts->count();
     }
 
     /**
@@ -69,7 +77,6 @@ class UserController extends Controller
     public function edit(User $user)
     {
         //
-
         return view('CMS.theme.default.admin.User.index', compact('user'));
     }
 
@@ -83,6 +90,10 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         //
+        $request->validate([
+            'username' => 'unique:users'
+        ]);
+
         if ($request->has('password')) {
             $request->request->add(['password' => bcrypt($request->password)]);
             $user->update($request->all());

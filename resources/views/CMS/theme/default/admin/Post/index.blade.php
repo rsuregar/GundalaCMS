@@ -109,7 +109,7 @@
                                         @endforeach
                                     </td>
                                     <td>
-                                      <a href="{{ route('user.show', $item->author) }}">
+                                      <a href="{{ route('user.show', $item->user->username) }}">
                                         <div class="d-inline-block ml-1">{{ $item->user->name }}</div>
                                       </a>
                                     </td>
@@ -157,7 +157,7 @@
             </div>
         </div>
         <div class="col-md-2">
-            @include(env('DEFAULT_COMPONENTS').'sidebar')
+            @include('CMS.theme.default.components.sidebar')
         </div>
     </div>
 </div>

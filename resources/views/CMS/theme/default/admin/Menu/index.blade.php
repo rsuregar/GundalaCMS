@@ -282,12 +282,12 @@
             </div>
         </div>
         <div class="col-md-2">
-            @include(env('DEFAULT_COMPONENTS').'sidebar')
+            @include('CMS.theme.default.components.sidebar')
         </div>
     </div>
 </div>
 
-@component(env('DEFAULT_COMPONENTS').'modal')
+@component('CMS.theme.default.components.modal')
 Jika Anda menghapus menu Induk. Sub-menu juga akan terhapus.
 @endcomponent
 
