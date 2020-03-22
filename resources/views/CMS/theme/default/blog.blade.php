@@ -42,7 +42,7 @@
                 @php
                     $comment = \App\Commentsetting::where('status', 1)->first();
                 @endphp
-                @if ($comment->status == 1 && $comment->comment_type == 'facebook')
+                @if (!empty($comment) && ($comment->status == 1 && $comment->comment_type == 'facebook'))
                 <div class="fb-comments" data-href="{{ url()->full() }}" data-width="720" data-numposts="5"></div>
                 @else
                     <div class="mb-4" id="disqus_thread"></div>
@@ -56,7 +56,7 @@
 </section>
 @endsection
 @push('script')
-@if ($comment->comment_type == 'disqus' && $comment->status == 1)
+@if (!empty($comment) && ($comment->comment_type == 'disqus' && $comment->status == 1))
 <script>
     var disqus_config = function () {
     this.page.url = '{{ env('APP_URL')}}';  // Replace PAGE_URL with your page's canonical URL variable
