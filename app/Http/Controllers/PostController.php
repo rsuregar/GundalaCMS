@@ -6,6 +6,7 @@ use App\Post;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
+use Meta;
 
 class PostController extends Controller
 {
@@ -80,6 +81,14 @@ class PostController extends Controller
         $random = Post::where('slug', '<>', $post)->where('status', 'published')->inRandomOrder()->limit(4)->get();
         // return $random;
         $judul = $data->title;
+
+        # Section description
+        Meta::set('title', $judul);
+        Meta::set('description', $data->meta ?? \Str::limit(htmlspecialchars(trim(strip_tags($data->content))), 200));
+        # Remove previous images
+        Meta::remove('image');
+        # Add only this last image
+        Meta::set('image', $data->thumbnail ?? asset('CMS/theme/default/images/placeholder.jpg'));
         // return $title;
         return view('CMS.theme.default.blog', compact('data', 'random','judul'));
     }

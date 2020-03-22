@@ -22,7 +22,7 @@
         <div class="col-lg-{{ $data->sidebar == 1 ? 8:10 }}">
                 <article class="article article-detail">
                     <figure class="article-image text-center">
-                    <img style="object-fit:cover" src="{{ $data->thumbnail != NULL ? $data->thumbnail:'https://via.placeholder.com/660x360.png' }}" alt="{{ $data->title }}" class="img-fluid">
+                    <img style="object-fit:cover" src="{{ $data->thumbnail != NULL ? $data->thumbnail:asset('CMS/theme/default/images/placeholder.jpg') }}" alt="{{ $data->title }}" class="img-fluid">
                     </figure>
                     <div class="p-5">
                         {{-- <div class="article-metas border-bottom pb-3">
@@ -40,14 +40,12 @@
                 <hr class="featurette-divider">
                 <p class="lead font-weight-bold">Berikan pendapat dan komentar kamu disini</p>
                 @php
-                    $commentId = 'facebook';
-                    $title = 'http://mycms.id/blog/halo-ini-slug';
+                    $comment = \App\Commentsetting::where('status', 1)->first();
                 @endphp
-                @if ($commentId == 'facebook')
-                {{-- <div class="fb-comments" data-href="{{ $title }}" data-width="550" data-numposts="5"></div> --}}
-                <div class="fb-comments" data-href="{{ $title }}" data-width="720" data-numposts="5"></div>
+                @if ($comment->status == 1 && $comment->comment_type == 'facebook')
+                <div class="fb-comments" data-href="{{ url()->full() }}" data-width="720" data-numposts="5"></div>
                 @else
-
+                    <div class="mb-4" id="disqus_thread"></div>
                 @endif
             </div>
             @if ($data->sidebar == 1)
@@ -57,3 +55,22 @@
     </div>
 </section>
 @endsection
+@push('script')
+@if ($comment->comment_type == 'disqus' && $comment->status == 1)
+<script>
+    var disqus_config = function () {
+    this.page.url = '{{ env('APP_URL')}}';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = '{{ env('APP_URL')}}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = '{{$comment->appId}}/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<script id="dsq-count-scr" src="{{$comment->appId}}/count.js" async></script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+@endif
+@endpush

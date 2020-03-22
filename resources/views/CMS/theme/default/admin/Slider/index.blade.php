@@ -9,7 +9,7 @@
                             {{ session('status') }}
                         </div>
                 @endif
-                <div class="card-header">{{ $title ?? 'Laravel CMS' }}</div>
+                <div class="card-header">{{ $title ?? env('APP_NAME') }}</div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">

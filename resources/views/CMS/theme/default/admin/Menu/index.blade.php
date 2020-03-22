@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-9">
             <div class="card">
-                <div class="card-header">{{ $title ?? 'Laravel CMS' }}</div>
+                <div class="card-header">{{ $title ?? env('APP_NAME') }}</div>
                 <div class="card-body">
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">

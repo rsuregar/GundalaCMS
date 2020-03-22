@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-9">
             <div class="card">
-                <div class="card-header">{{ $title ?? 'CMS' }}</div>
+                <div class="card-header">{{ $title ?? env('APP_NAME') }}</div>
                 <div class="card-body">
 
                     <form method="POST" action="{{ isset($user) ? route('user.update', $user->id):route('user.store') }}">
