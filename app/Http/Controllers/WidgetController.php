@@ -96,8 +96,9 @@ class WidgetController extends Controller
     public function update(Request $request, Widget $widget)
     {
         //
+        // return $request;
         $request->request->add(['show_at' => json_encode($request->show_at)]);
-        $widget->update($request->all());
+        $widget->update($request->except('files'));
         return redirect()->back();
     }
 
@@ -110,5 +111,7 @@ class WidgetController extends Controller
     public function destroy(Widget $widget)
     {
         //
+        $widget->delete();
+        return redirect()->back();
     }
 }

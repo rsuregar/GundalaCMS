@@ -38,7 +38,7 @@
 
                                   <label for="inputAddress" class="border-bottom">Widget Content</label>
                                 <section class="html" style="display:{{ (isset($data) && $data->widget_type == 1) ? '':'none'}}">
-                                    <textarea name="widget_content" id="summernote-editor" required disabled>{{ isset($data) ? $data->widget_content:'' }}</textarea>
+                                    <textarea name="widget_content" id="summernote-editor" {{ (isset($data) && $data->widget_type == 1) ? '':'required disabled'}}>{{ isset($data) ? $data->widget_content:'' }}</textarea>
                                 </section>
 
                                 <select name="widget_content" id="menu" class="form-control" style="display:{{ (isset($data) && $data->widget_type == 2) ? '':'none'}}" {{ (isset($data) && $data->widget_type == 2) ? '':'required disabled'}} >
