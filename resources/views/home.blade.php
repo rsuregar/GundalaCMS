@@ -83,7 +83,7 @@
                                 </div>
                             </a>
                         </div>
-                        {{-- <div class="col-6 col-sm-4 col-lg-2 mb-4">
+                        <div class="col-6 col-sm-4 col-lg-2 mb-4">
                             <a style="text-decoration:none" href="{{ route('media.index') }}">
                                 <div class="card">
                                     <div class="card-body p-3 text-center">
@@ -92,7 +92,7 @@
                                     </div>
                                 </div>
                             </a>
-                        </div> --}}
+                        </div>
                         <div class="col-6 col-sm-4 col-lg-2 mb-4">
                             <a style="text-decoration:none" href="{{ route('user.index') }}">
                                 <div class="card">
