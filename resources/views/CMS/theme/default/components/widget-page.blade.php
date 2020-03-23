@@ -65,7 +65,7 @@
                         <li class="media my-4 border-bottom pb-2">
                         <img class="align-self-start mr-3" src="{{ $el->thumbnail != NULL ? $el->thumbnail:'https://via.placeholder.com/660x360.png' }}" style="height:60px; width:60px; object-fit:cover" alt="Generic placeholder image">
                             <div class="media-body widget-link">
-                            <a href="{{ env('APP_URL').'/blog/'.$el->slug }}"><h6 class="mt-0 mb-1" style="font-size:14px">{{ $el->title }}</h6></a>
+                            <a href="{{ config('app.url').'/blog/'.$el->slug }}"><h6 class="mt-0 mb-1" style="font-size:14px">{{ $el->title }}</h6></a>
                                 <p class="card-text">{!! \Str::words(htmlspecialchars(trim(strip_tags($el->content))), 10, ' ...') !!}</p>
                             </div>
                         </li>
