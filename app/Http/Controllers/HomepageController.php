@@ -18,6 +18,8 @@ class HomepageController extends Controller
         $tagline = !empty($config) ? $config->tagline:'Gundala CMS';
         $footer = !empty($config) ? $config->copyright:'GundalaCMS';
 
+        // return $slider;
+
         return view('CMS.theme.default.index', compact('data', 'featured', 'slider', 'judul', 'tagline', 'footer', 'menus'));
     }
 }

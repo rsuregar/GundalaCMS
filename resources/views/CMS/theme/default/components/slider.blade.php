@@ -8,7 +8,7 @@
         </ol> --}}
         <div class="carousel-inner">
             @forelse ($slider as $item)
-            <div class="carousel-item {{$item->ordered == 1 ? 'active':''}}">
+            <div class="carousel-item {{ ($item->ordered == 1) ? 'active':''}}">
                 <a href="{{ $item->link !=null ? $item->link:'#' }}">
                 <img class="d-block img-fluid" src="{{ $item->image !=null ? $item->image:'https://via.placeholder.com/1920x600.png/dc3545' }}" alt="{{ $item->title }}">
                 {{-- <div class="container">

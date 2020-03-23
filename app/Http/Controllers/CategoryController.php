@@ -62,7 +62,8 @@ class CategoryController extends Controller
     public function show($category)
     {
         //
-        return $category = Category::with('blog', 'blog.author', 'blog.editor')->where('slug', $category)->firstOrFail();
+        $cat = Category::with('blog', 'blog.author', 'blog.editor')->where('slug', $category)->firstOrFail();
+        return view('CMS.theme.default.arsip', compact('cat'));
     }
 
     /**
