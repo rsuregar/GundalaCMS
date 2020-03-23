@@ -94,7 +94,7 @@
                         @endforeach
                     </ul> --}}
                     @foreach (\App\Category::whereHas('blog')->orderBy('id', $item->widget_content)->get() as $a)
-                        <a href="#" type="button" class="btn btn-sm btn-warning mb-2" style="border-radius:10px">
+                        <a href="{{ route('category.show', $a->slug) }}" type="button" class="btn btn-sm btn-warning mb-2" style="border-radius:10px">
                         {{ $a->name }} <span class="badge badge-light"> {{ $a->blog->count() }}</span>
                             {{-- <span class="sr-only">unread messages</span> --}}
                         </a>

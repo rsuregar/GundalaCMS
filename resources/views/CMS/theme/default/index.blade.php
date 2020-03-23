@@ -20,7 +20,7 @@
         <div class="row justify-content-center">
             @forelse ($data as $item)
             <div class="col-md-6 col-xl-6 mb-5">
-            <a class="card post-preview lift h-100" href="{{ route('blog', $item->slug )}}"><img style="height:200px; object-fit:cover" class="card-img-top" src="{{ $item->thumbnail != NULL ? $item->thumbnail:asset('CMS/theme/default/images/placeholder.jpg') }}" alt="...">
+            <a class="card post-preview lift h-100" href="{{ route('blog', $item->slug )}}"><img style="height:200px; object-fit:cover" class="card-img-top" src="{{ $item->thumbnail != NULL ? $item->thumbnail:asset('CMS/theme/default/images/placeholder.jpg') }}" alt="{{$item->title}}">
                     <div class="card-body">
                         <h5 class="card-title">{{ $item->title }}</h5>
                     <p class="card-text">{!! \Str::words(htmlspecialchars(trim(strip_tags($item->content))), 10, ' ...') !!}</p>

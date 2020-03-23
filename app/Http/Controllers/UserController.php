@@ -50,7 +50,7 @@ class UserController extends Controller
         $save->username = $request->username;
         $save->password = bcrypt($request->password);
         $save->email_verified_at = now();
-        $save->role_id = 3;
+        $save->role_id = $request->role_id;
         $save->save();
         return redirect()->back();
     }
@@ -64,8 +64,8 @@ class UserController extends Controller
     public function show($user)
     {
         //
-        $user = User::where('username', $user)->first();
-        return $user->posts->count();
+        $user = User::with('posts')->where('username', $user)->first();
+        return view('CMS.theme.default.arsip', compact('user'));
     }
 
     /**
