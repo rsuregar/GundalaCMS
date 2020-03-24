@@ -74,8 +74,6 @@ class install extends Command
 
         $this->line('3. Menjalankan konfigurasi environment aplikasi...');
         Artisan::call('key:generate');
-        Artisan::call('config:clear');
-        Artisan::call('config:cache');
 
         $this->info('>>>>> konfigurasi environment berhasil.');
 
@@ -92,6 +90,9 @@ class install extends Command
             $this->info('>>>>> public storage telah tersedia.');
         }
 
-        $this->info('--------------Instalasi telah selesai, Selamat Menggunakan GundalaCMS---------------');
+        $this->line('5. Finalisasi konfigurasi sistem');
+        Artisan::call('config:cache');
+
+        $this->info('Instalasi telah selesai, Selamat Menggunakan GundalaCMS');
     }
 }
