@@ -45,8 +45,8 @@ class install extends Command
         // $this->line('Menghapus Database Lama.');
         // Artisan::call('database:delete', ['db_name' => env('DB_DATABASE')]);
 
-        $this->line('Persiapan menginstall package');
-        Artisan::call('gundalacms:composer');
+        // $this->line('Persiapan menginstall package');
+        // Artisan::call('gundalacms:composer');
 
         $this->line('1. Menjalankan migrasi database...');
         // $this->line('Butuh beberapa saat mohon bersabar......');
