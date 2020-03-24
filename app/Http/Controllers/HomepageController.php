@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 class HomepageController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
+
         $menus = \App\Menu::where(['menu_location' => 'top', 'menu_position' => 'left', 'is_active' => 1])->first();
         $data = \App\Post::where('status', 'published')->where('visibility', 'public')->latest()->paginate(9);
         $featured = \App\Menufeatured::where('is_active', 1)->get();
