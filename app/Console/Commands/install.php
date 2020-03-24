@@ -45,8 +45,8 @@ class install extends Command
         // $this->line('Menghapus Database Lama.');
         // Artisan::call('database:delete', ['db_name' => env('DB_DATABASE')]);
 
-        // $this->line('Membuat Database baru');
-        // Artisan::call('database:create', ['db_name' => env('DB_DATABASE')]);
+        $this->line('Persiapan menginstall package');
+        Artisan::call('gundalacms:composer');
 
         $this->line('1. Menjalankan migrasi database...');
         // $this->line('Butuh beberapa saat mohon bersabar......');
@@ -60,7 +60,7 @@ class install extends Command
             '--force' => true
         ]);
 
-        $this->line('>>>>> migrasi database berhasil.');
+        $this->info('>>>>> migrasi database berhasil.');
 
         $this->line('2. Menjalankan konfigurasi database...');
         Artisan::call('db:seed', [
@@ -68,7 +68,7 @@ class install extends Command
         ]);
         // Artisan::call('database:user:seed');
 
-        $this->line('>>>>> konfigurasi database berhasil.');
+        $this->info('>>>>> konfigurasi database berhasil.');
         // $this->line('Butuh beberapa saat mohon bersabar......');
         // Artisan::call('database:role:seed');
 
@@ -77,7 +77,7 @@ class install extends Command
         Artisan::call('config:clear');
         Artisan::call('config:cache');
 
-        $this->line('>>>>> konfigurasi environment berhasil.');
+        $this->info('>>>>> konfigurasi environment berhasil.');
 
         $path = public_path().'/storage';
 
@@ -85,13 +85,13 @@ class install extends Command
 
         if (!file_exists($path)) {
             Artisan::call('storage:link');
-            $this->line('>>>>> public storage berhasil dibuat.');
+            $this->info('>>>>> public storage berhasil dibuat.');
         }
         else
         {
-            $this->line('>>>>> public storage telah tersedia.');
+            $this->info('>>>>> public storage telah tersedia.');
         }
 
-        $this->line('--------------Instalasi telah selesai, Selamat Menggunakan GundalaCMS---------------');
+        $this->info('--------------Instalasi telah selesai, Selamat Menggunakan GundalaCMS---------------');
     }
 }

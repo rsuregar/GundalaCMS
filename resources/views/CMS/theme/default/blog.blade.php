@@ -37,14 +37,17 @@
                 <hr class="featurette-divider">
                 <p class="lead font-weight-bold">Related Post</p>
                 @include('CMS.theme.default.components.blog-related')
-                <hr class="featurette-divider">
-                <p class="lead font-weight-bold">Berikan pendapat dan komentar kamu disini</p>
+
                 @php
                     $comment = \App\Commentsetting::where('status', 1)->first();
                 @endphp
                 @if (!empty($comment) && ($comment->status == 1 && $comment->comment_type == 'facebook'))
+                <hr class="featurette-divider">
+                <p class="lead font-weight-bold">Berikan pendapat dan komentar kamu disini</p>
                 <div class="fb-comments" data-href="{{ url()->full() }}" data-width="720" data-numposts="5"></div>
-                @else
+                @elseif(!empty($comment) && ($comment->status == 1 && $comment->comment_type == 'disqus'))
+                <hr class="featurette-divider">
+                <p class="lead font-weight-bold">Berikan pendapat dan komentar kamu disini</p>
                     <div class="mb-4" id="disqus_thread"></div>
                 @endif
             </div>
