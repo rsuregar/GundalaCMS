@@ -80,8 +80,8 @@
                                                 <div class="form-group col-md-2">
                                                   <label for="tipemenu">Tipe menu</label>
                                                   <select name="type" id="tipemenu" class="form-control" required>
-                                                    <option value="link">Link</option>
-                                                    <option value="submenu">Memiliki submenu</option>
+                                                    <option value="link">Tanpa Submenu</option>
+                                                    <option value="submenu">Memiliki Submenu</option>
                                                   </select>
                                                 </div>
                                                 <div class="form-group col-md-3">
