@@ -38,8 +38,8 @@
         <div class="form-group col-md-4">
           <label for="exampleFormControlSelect1">Tipe Menu</label>
           <select name="type" id="inputState" class="form-control" required>
-            <option {{ $menuitem->type == 'link' ? 'selected':''}} value="link">Link</option>
-            <option {{ $menuitem->type == 'submenu' ? 'selected':''}} value="submenu">Submenu</option>
+            <option {{ $menuitem->type == 'link' ? 'selected':''}} value="link">Tanpa Submenu</option>
+            <option {{ $menuitem->type == 'submenu' ? 'selected':''}} value="submenu">Memiliki Submenu</option>
           </select>
         </div>
         <div class="form-group col-md-8">
